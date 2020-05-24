@@ -1,25 +1,38 @@
 import * as React from "react"
 import { Route, Switch } from "react-router-dom"
 import styled, { createGlobalStyle } from "styled-components"
-
-import { Page } from "./Page"
+import { Desktop } from "./Desktop"
+import { ResolutionGuard } from "./ResolutionGuard"
 
 const GlobalStyle = createGlobalStyle`
   html, body {
     margin: 0px;
-    background-color: #92a8d0;
+    padding: 0px;
+  }
+
+  @font-face {
+    font-family: Pixellari;
+    src: url("public/Pixellari.ttf");
   }
 `
 
 export const App: React.FC = () => (
-    <Wrapper>
+    <>
         <GlobalStyle />
-        <Switch>
-            <Route exact path="/" component={Page} />
-        </Switch>
-    </Wrapper>
+        <ResolutionGuard>
+            <Wrapper>
+                <Switch>
+                    <Route exact path="/" component={Desktop} />
+                </Switch>
+            </Wrapper>
+        </ResolutionGuard>
+    </>
 )
 
 export default App
 
-const Wrapper = styled.div``
+const Wrapper = styled.div`
+    width: 100%;
+    height: 100%;
+    position: absolute;
+`

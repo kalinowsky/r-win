@@ -8,5 +8,5 @@ render(
     <BrowserRouter>
         <Route path="/" component={App} />
     </BrowserRouter>,
-    document.querySelector("body")
+    document.getElementById("app")
 )
