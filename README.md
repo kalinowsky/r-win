@@ -1,17 +1,16 @@
-# React Business Card project
+# React Win
 
 ## Setup
 to install dependencies
 ```sh
-$ npm install
+$ yarn
 ```
 ## Running
 to run application with hot reloading
 ```
-$ npm start
+$ yarn start
 ```
 ## Testing
 ```
-$ npm test
+$ yarn test
 ```
- 

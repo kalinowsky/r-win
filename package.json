@@ -1,5 +1,5 @@
 {
-    "name": "new-project",
+    "name": "r-win",
     "version": "1.0.0",
     "description": "## Setup to install dependencies ```sh $ npm install ``` ## Running to run application with hot reloading ``` $ npm start ``` ## Testing ``` $ npm test ```",
     "main": "index.js",
