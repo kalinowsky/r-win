@@ -8,6 +8,7 @@ const GlobalStyle = createGlobalStyle`
   html, body {
     margin: 0px;
     padding: 0px;
+    font-family: sans-serif
   }
 
   @font-face {
