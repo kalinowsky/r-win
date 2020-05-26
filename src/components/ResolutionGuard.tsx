@@ -13,7 +13,7 @@ export const ResolutionGuard: React.FC = p => {
     React.useEffect(() => {
         window.addEventListener("resize", handleResize)
         return () => window.removeEventListener("resize", handleResize)
-    }, [])
+    }, [handleResize])
 
     if (validResoltuion)
         return p.children ? (
