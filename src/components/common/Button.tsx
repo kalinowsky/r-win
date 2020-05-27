@@ -10,6 +10,7 @@ export const Button = styled.button`
     min-width: 75px;
     min-height: 23px;
     padding: 0 12px;
+
     &:active {
         box-shadow: inset -1px -1px #fff, inset 1px 1px #0a0a0a, inset -2px -2px #dfdfdf, inset 2px 2px grey;
         padding: 2px 11px 0 13px;
