@@ -22,7 +22,7 @@ export const BottomNav: React.FC = () => {
                     <MenuWrapper onClick={e => e.stopPropagation()}>
                         <GradientBelt />
                         <ItemsContainer>
-                            <Item>Shut Down...</Item>
+                            <Item onClick={() => localStorage.setItem("status", "")}>Shut Down...</Item>
                             <Separator />
                             <ExpandableItemComponent>Test</ExpandableItemComponent>
                         </ItemsContainer>

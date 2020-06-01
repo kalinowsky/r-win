@@ -3,6 +3,7 @@ import { Route, Switch } from "react-router-dom"
 import styled, { createGlobalStyle } from "styled-components"
 import { Desktop } from "./Desktop"
 import { ResolutionGuard } from "./ResolutionGuard"
+import { FirstBoot } from "./FirstBoot"
 
 const GlobalStyle = createGlobalStyle`s
   html, body {
@@ -33,12 +34,14 @@ const GlobalStyle = createGlobalStyle`s
     src: url("public/Pixellari.ttf");
   }
 `
+const getAppStatus = () => localStorage.getItem("status")
 
 export const App: React.FC = () => (
     <>
         <GlobalStyle />
         <ResolutionGuard>
             <Wrapper>
+                {!getAppStatus() && <FirstBoot />}
                 <Switch>
                     <Route exact path="/" component={Desktop} />
                 </Switch>

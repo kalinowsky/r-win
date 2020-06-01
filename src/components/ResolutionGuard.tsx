@@ -15,21 +15,15 @@ export const ResolutionGuard: React.FC = p => {
         return () => window.removeEventListener("resize", handleResize)
     }, [handleResize])
 
-    if (validResoltuion)
-        return p.children ? (
-            <>{p.children}</>
-        ) : (
-            <Wrapper>
-                <PixelText>No children</PixelText>
-            </Wrapper>
-        )
-
-    return (
-        <Wrapper>
-            <PixelText>Minimal resultion is {MIN_WIDTH}PX</PixelText>
-        </Wrapper>
-    )
+    if (validResoltuion) return p.children ? <>{p.children}</> : <DarkScreen text="No children" />
+    return <DarkScreen text={`Minimal resultion is ${MIN_WIDTH}PX`} />
 }
+
+export const DarkScreen: React.FC<{ text: string }> = p => (
+    <Wrapper>
+        <PixelText>{p.text}</PixelText>
+    </Wrapper>
+)
 
 const Wrapper = styled.div`
     position: fixed;
@@ -39,6 +33,7 @@ const Wrapper = styled.div`
     justify-content: center;
     align-items: center;
     background-color: #000;
+    z-index: 10;
 
     p {
         margin: 20px;
