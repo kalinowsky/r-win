@@ -3,7 +3,9 @@ import { Route, Switch } from "react-router-dom"
 import styled, { createGlobalStyle } from "styled-components"
 import { Desktop } from "./Desktop"
 import { ResolutionGuard } from "./ResolutionGuard"
-import { FirstBoot } from "./FirstBoot"
+import { Boot, ShutDown } from "./SystemBoot"
+import { createStore } from "../store"
+import { actions } from "@/actions"
 
 const GlobalStyle = createGlobalStyle`s
   html, body {
@@ -34,17 +36,38 @@ const GlobalStyle = createGlobalStyle`s
     src: url("public/Pixellari.ttf");
   }
 `
-const getAppStatus = () => localStorage.getItem("status")
+
+export type SystemStatus = "BOOTING" | "DESKTOP" | "SHUTDOWN"
+type State = {
+    status: SystemStatus
+}
+
+const isInitialized = () => {
+    if (localStorage.getItem("status") === "INITALIZED") return true
+    localStorage.setItem("status", "INITALIZED")
+    return false
+}
+
+const state: State = {
+    status: isInitialized() ? "DESKTOP" : "BOOTING"
+}
+
+type Action = ReturnType<actions>
+const reducer = (s: State, a: Action) => {
+    if (a.name === "SET_STATUS") {
+        return { status: a.payload }
+    }
+    return s
+}
+
+export const store = createStore(reducer, state)
 
 export const App: React.FC = () => (
     <>
         <GlobalStyle />
         <ResolutionGuard>
             <Wrapper>
-                {!getAppStatus() && <FirstBoot />}
-                <Switch>
-                    <Route exact path="/" component={Desktop} />
-                </Switch>
+                <SystemState />
             </Wrapper>
         </ResolutionGuard>
     </>
@@ -57,3 +80,18 @@ const Wrapper = styled.div`
     height: 100%;
     position: absolute;
 `
+
+const SystemState: React.FC = () => {
+    const [status, setStatus] = React.useState(store.getState().status)
+
+    store.subscribe(s => setStatus(s.status))
+    return (
+        <>
+            {status == "BOOTING" && <Boot />}
+            {status === "SHUTDOWN" && <ShutDown />}
+            <Switch>
+                <Route exact path="/" component={Desktop} />
+            </Switch>
+        </>
+    )
+}

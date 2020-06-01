@@ -1,27 +1,21 @@
 import { v4 } from "uuid"
 import { SMap } from "./types"
 
-type State = any
 export type Action = {
     name: string
-    paylod?: any
+    payload?: any
 }
-type Listener = (s: State) => void
 
-let _state: any = null
-const _listeners: SMap<Listener> = {}
+export const createStore = <TState>(reducer: (s: TState, action: Action) => TState, initialState: TState) => {
+    type Listener = (s: TState) => void
 
-export const createStore = <TState extends State>(
-    reducer: (s: TState, action: any) => TState,
-    initialState: TState
-) => {
-    const currentReducer = reducer
-    _state = initialState
+    let _state: TState = initialState
+    const _listeners: SMap<(s: TState) => void> = {}
 
     const getState = (): TState => _state
 
     const dispatch = (action: Action) => {
-        _state = currentReducer(_state, action)
+        _state = reducer(_state, action)
         Object.values(_listeners).forEach((l: Listener) => l(_state))
     }
 

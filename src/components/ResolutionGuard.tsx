@@ -19,11 +19,38 @@ export const ResolutionGuard: React.FC = p => {
     return <DarkScreen text={`Minimal resultion is ${MIN_WIDTH}PX`} />
 }
 
-export const DarkScreen: React.FC<{ text: string }> = p => (
+export const DarkScreen: React.FC<{ text: string; loading?: boolean }> = p => (
     <Wrapper>
-        <PixelText>{p.text}</PixelText>
+        <LoadablePixelText loading={p.loading}>{p.text}</LoadablePixelText>
     </Wrapper>
 )
+
+const LoadablePixelText = styled(PixelText)<{ loading?: boolean }>`
+    &:after {
+        content: " .";
+        animation: dots 1s steps(5, end) infinite;
+        display: ${p => (p.loading ? "inline-block" : "none")};
+    }
+
+    @keyframes dots {
+        0%,
+        20% {
+            color: #f47a02;
+            text-shadow: 0.25em 0 0 rgba(0, 0, 0, 0), 0.5em 0 0 rgba(0, 0, 0, 0);
+        }
+        40% {
+            color: #f47a02;
+            text-shadow: 0.25em 0 0 rgba(0, 0, 0, 0), 0.5em 0 0 rgba(0, 0, 0, 0);
+        }
+        60% {
+            text-shadow: 0.25em 0 0 #f47a02, 0.5em 0 0 rgba(0, 0, 0, 0);
+        }
+        80%,
+        100% {
+            text-shadow: 0.25em 0 0 #f47a02, 0.5em 0 0 #f47a02;
+        }
+    }
+`
 
 const Wrapper = styled.div`
     position: fixed;
