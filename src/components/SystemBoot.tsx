@@ -11,5 +11,5 @@ export const Boot: React.SFC = () => {
 }
 
 export const ShutDown: React.SFC = () => {
-    return <DarkScreen text="It's Now Safe To Turn Off Your this tab." />
+    return <DarkScreen text="It's Now Safe To Turn Off this tab." />
 }
