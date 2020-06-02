@@ -1,9 +1,11 @@
 import * as React from "react"
 import styled from "styled-components"
 import { BottomNav } from "./Nav"
+import { Window } from "./common/Window"
 
 export const Desktop: React.SFC = () => (
     <Wrapper>
+        <Window />
         <BottomNav />
     </Wrapper>
 )
