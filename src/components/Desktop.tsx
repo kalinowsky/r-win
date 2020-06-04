@@ -5,7 +5,7 @@ import { Window } from "./common/Window"
 
 export const Desktop: React.SFC = () => (
     <Wrapper>
-        <Window />
+        <Window overlay />
         <BottomNav />
     </Wrapper>
 )

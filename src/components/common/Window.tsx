@@ -141,5 +141,5 @@ export const Overlay = styled.div`
     z-index: 1;
     width: 100vw;
     height: 100vh;
-    background-color: #00000070;
+    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAJ0lEQVQYV2NkYGBoYGBg2MyAAL6MDAwMxkgCYCayoC9MB06VGGYCAPbjBJ9CSv2BAAAAAElFTkSuQmCC);
 `
