@@ -10,7 +10,7 @@ import { SMap } from "@/types"
 import { programs } from "@/programs"
 import { filterObject } from "../utils"
 
-const GlobalStyle = createGlobalStyle`s
+const GlobalStyle = createGlobalStyle`
   html, body {
     margin: 0px;
     padding: 0px;

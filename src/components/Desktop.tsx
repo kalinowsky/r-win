@@ -5,8 +5,8 @@ import { Programs } from "./Programs"
 
 export const Desktop: React.SFC = () => (
     <Wrapper>
-        <BottomNav />
         <Programs />
+        <BottomNav />
     </Wrapper>
 )
 

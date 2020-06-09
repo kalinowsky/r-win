@@ -1,4 +1,4 @@
-import { TMap, SMap } from "./types"
+import { SMap } from "./types"
 
 export const debounce = <F extends (...args: any[]) => any>(func: F, waitFor: number) => {
     let timeout: ReturnType<typeof setTimeout> | null = null

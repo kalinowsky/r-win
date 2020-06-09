@@ -1,5 +1,5 @@
 import * as React from "react"
-import { ShutdownDialog } from "./ShutdownDialog"
+import { ShutdownDialog } from "./programs/ShutdownDialog"
 import { store } from "./App"
 
 export const Programs: React.FC = () => {

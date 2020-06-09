@@ -1,9 +1,9 @@
 import * as React from "react"
-import { Window } from "./common/Window"
-import { FlexView } from "./common/Layout"
-import { Button } from "./common/Button"
-import { store } from "./App"
-import { setStatus, closeProgram } from "../actions"
+import { Window } from "../common/Window"
+import { FlexView } from "../common/Layout"
+import { Button } from "../common/Button"
+import { store } from "../App"
+import { setStatus, closeProgram } from "../../actions"
 
 export const ShutdownDialog: React.FC = () => {
     const shutdown = () => {
