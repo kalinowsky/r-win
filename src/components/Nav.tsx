@@ -3,7 +3,7 @@ import styled from "styled-components"
 import { SystemTime } from "./SystemTime"
 import { Button } from "./common/Button"
 import { store } from "./App"
-import { setStatus } from "../actions"
+import { openProgram } from "../actions"
 
 const StartButton = styled(Button)`
     height: 32px;
@@ -16,10 +16,7 @@ const StartButton = styled(Button)`
 export const BottomNav: React.FC = () => {
     const [menuVisible, setMenuVisible] = React.useState<boolean>(false)
     const toggleMenu = () => setMenuVisible(!menuVisible)
-    const shutdown = () => {
-        localStorage.setItem("status", "")
-        store.dispatch(setStatus("SHUTDOWN"))
-    }
+    const shutdown = () => store.dispatch(openProgram("shutdown"))
     return (
         <>
             {menuVisible && (
@@ -27,7 +24,13 @@ export const BottomNav: React.FC = () => {
                     <MenuWrapper onClick={e => e.stopPropagation()}>
                         <GradientBelt />
                         <ItemsContainer>
-                            <Item onClick={shutdown}>Shut Down...</Item>
+                            <Item
+                                onClick={() => {
+                                    shutdown()
+                                    setMenuVisible(false)
+                                }}>
+                                Shut Down...
+                            </Item>
                             <Separator />
                             <ExpandableItemComponent>Test</ExpandableItemComponent>
                         </ItemsContainer>

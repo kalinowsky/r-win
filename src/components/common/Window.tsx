@@ -1,46 +1,18 @@
 import * as React from "react"
 import styled from "styled-components"
-import { Button } from "./Button"
-import { FlexView } from "./Layout"
-
-export const Demo = () => {
-    return (
-        <Overlay>
-            <WindowWrapper>
-                <Navigation>
-                    <div>Title</div>
-                    <ActionWrapper>
-                        <Action>
-                            <ActionIconMinimize />
-                        </Action>
-                        <Action>
-                            <ActionIconMaximize />
-                        </Action>
-                        <Action>
-                            <ActionIconClose />
-                        </Action>
-                    </ActionWrapper>
-                </Navigation>
-                <Content>
-                    <FlexView>Hello world</FlexView>
-                    <FlexView justify="flex-end">
-                        <Button>test</Button>
-                    </FlexView>
-                </Content>
-            </WindowWrapper>
-        </Overlay>
-    )
-}
 
 type WindowProps = {
+    title: string
+    children?: React.ReactNode
     overlay?: boolean
+    onClose?: () => void
 }
 export const Window: React.FC<WindowProps> = p => (
     <>
         {p.overlay && <Overlay />}
         <WindowWrapper>
             <Navigation>
-                <div>Title</div>
+                <div>{p.title}</div>
                 <ActionWrapper>
                     <Action>
                         <ActionIconMinimize />
@@ -48,17 +20,12 @@ export const Window: React.FC<WindowProps> = p => (
                     <Action>
                         <ActionIconMaximize />
                     </Action>
-                    <Action>
+                    <Action onClick={p.onClose}>
                         <ActionIconClose />
                     </Action>
                 </ActionWrapper>
             </Navigation>
-            <Content>
-                <FlexView>Hello world</FlexView>
-                <FlexView justify="flex-end">
-                    <Button>test</Button>
-                </FlexView>
-            </Content>
+            <Content>{p.children}</Content>
         </WindowWrapper>
     </>
 )

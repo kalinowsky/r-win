@@ -6,6 +6,9 @@ import { ResolutionGuard } from "./ResolutionGuard"
 import { Boot, ShutDown } from "./SystemBoot"
 import { createStore } from "../store"
 import { actions } from "@/actions"
+import { SMap } from "@/types"
+import { programs } from "@/programs"
+import { filterObject } from "../utils"
 
 const GlobalStyle = createGlobalStyle`s
   html, body {
@@ -38,8 +41,14 @@ const GlobalStyle = createGlobalStyle`s
 `
 
 export type SystemStatus = "BOOTING" | "DESKTOP" | "SHUTDOWN"
+
+export type Program = {
+    id: programs
+}
+
 type State = {
     status: SystemStatus
+    programs: SMap<Program>
 }
 
 const isInitialized = () => {
@@ -49,13 +58,20 @@ const isInitialized = () => {
 }
 
 const state: State = {
-    status: isInitialized() ? "DESKTOP" : "BOOTING"
+    status: isInitialized() ? "DESKTOP" : "BOOTING",
+    programs: {}
 }
 
 type Action = ReturnType<actions>
 const reducer = (s: State, a: Action) => {
     if (a.name === "SET_STATUS") {
-        return { status: a.payload }
+        return { ...s, status: a.payload }
+    }
+    if (a.name === "OPEN_PROGRAM") {
+        return { ...s, programs: { [a.payload]: { id: a.payload } } }
+    }
+    if (a.name === "CLOSE_PROGRAM") {
+        return { ...s, programs: filterObject(s.programs, p => p.id !== a.payload) }
     }
     return s
 }

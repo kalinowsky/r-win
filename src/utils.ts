@@ -1,3 +1,5 @@
+import { TMap, SMap } from "./types"
+
 export const debounce = <F extends (...args: any[]) => any>(func: F, waitFor: number) => {
     let timeout: ReturnType<typeof setTimeout> | null = null
 
@@ -10,4 +12,14 @@ export const debounce = <F extends (...args: any[]) => any>(func: F, waitFor: nu
     }
 
     return debounced as (...args: Parameters<F>) => ReturnType<F>
+}
+
+export const filterObject = <T extends SMap<V>, V extends any>(o: T, v: (v: V) => boolean): SMap<V> => {
+    const nextObject: SMap<V> = {}
+    Object.keys(o).filter(k => {
+        if (v(o[k])) {
+            nextObject[k] = o[k]
+        }
+    })
+    return nextObject
 }
