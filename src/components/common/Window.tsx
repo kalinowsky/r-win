@@ -6,7 +6,10 @@ type WindowProps = {
     children?: React.ReactNode
     overlay?: boolean
     onClose?: () => void
+    onMax?: () => void
+    onMin?: () => void
 }
+
 export const Window: React.FC<WindowProps> = p => (
     <>
         {p.overlay && <Overlay />}
@@ -14,15 +17,21 @@ export const Window: React.FC<WindowProps> = p => (
             <Navigation>
                 <div>{p.title}</div>
                 <ActionWrapper>
-                    <Action>
-                        <ActionIconMinimize />
-                    </Action>
-                    <Action>
-                        <ActionIconMaximize />
-                    </Action>
-                    <Action onClick={p.onClose}>
-                        <ActionIconClose />
-                    </Action>
+                    {p.onMax && (
+                        <Action>
+                            <ActionIconMinimize onClick={p.onMin} />
+                        </Action>
+                    )}
+                    {p.onMax && (
+                        <Action>
+                            <ActionIconMaximize onClick={p.onMax} />
+                        </Action>
+                    )}
+                    {p.onClose && (
+                        <Action onClick={p.onClose}>
+                            <ActionIconClose />
+                        </Action>
+                    )}
                 </ActionWrapper>
             </Navigation>
             <Content>{p.children}</Content>
