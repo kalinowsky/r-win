@@ -1,1 +1,1 @@
-export type programs = "shutdown" | ""
+export type programs = "shutdown" | "notepad"

@@ -8,12 +8,14 @@ type WindowProps = {
     onClose?: () => void
     onMax?: () => void
     onMin?: () => void
+    width?: string
+    height?: string
 }
 
 export const Window: React.FC<WindowProps> = p => (
     <>
         {p.overlay && <Overlay />}
-        <WindowWrapper>
+        <WindowWrapper width={p.width} height={p.height}>
             <Navigation>
                 <div>{p.title}</div>
                 <ActionWrapper>
@@ -39,9 +41,10 @@ export const Window: React.FC<WindowProps> = p => (
     </>
 )
 
-const WindowWrapper = styled.div`
+const WindowWrapper = styled.div<{ height?: string; width?: string }>`
+    height: ${p => p.height || "auto"};
+    width: ${p => p.width || "300px"};
     position: fixed;
-    width: 300px;
     min-height: 40px;
     box-shadow: inset -1px -1px #0a0a0a, inset 1px 1px #dfdfdf, inset -2px -2px grey, inset 2px 2px #fff;
     background: silver;

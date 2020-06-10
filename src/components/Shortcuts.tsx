@@ -14,12 +14,7 @@ const SHORTCUTS: Shortcut[] = [
     {
         name: "README",
         filename: "notepad.svg",
-        program: ""
-    },
-    {
-        name: "README TEST",
-        filename: "notepad.svg",
-        program: ""
+        program: "notepad"
     },
     {
         name: "SHUTDOWN TEST",
