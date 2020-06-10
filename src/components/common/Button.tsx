@@ -21,3 +21,10 @@ export const Button = styled.button`
         outline-offset: -4px;
     }
 `
+
+export const ButtonWrapper = styled.div`
+    display: flex;
+    button {
+        margin-left: 10px;
+    }
+`
