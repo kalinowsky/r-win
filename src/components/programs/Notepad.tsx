@@ -11,7 +11,7 @@ export const Notepad: React.FC = () => {
     const { notepad } = store.getState().programs
     return (
         <Window title="Notepad" onClose={dismiss} height="400px" width="600px">
-            <TextArea defaultValue={notepad.value}></TextArea>
+            <TextArea defaultValue={notepad.value.text}></TextArea>
         </Window>
     )
 }

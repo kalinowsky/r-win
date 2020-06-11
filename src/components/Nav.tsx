@@ -4,6 +4,7 @@ import { SystemTime } from "./SystemTime"
 import { Button } from "./common/Button"
 import { store } from "./App"
 import { openProgram } from "../actions"
+import { Program } from "@/domain"
 
 const StartButton = styled(Button)`
     height: 32px;
@@ -14,12 +15,11 @@ const StartButton = styled(Button)`
 `
 
 export const BottomNav: React.FC = () => {
-    const [programs, setPrograms] = React.useState<any[]>([])
+    const [programs, setPrograms] = React.useState<Program[]>([])
     const [menuVisible, setMenuVisible] = React.useState<boolean>(false)
     const toggleMenu = () => setMenuVisible(!menuVisible)
-    const shutdown = () => store.dispatch(openProgram("shutdown"))
+    const shutdown = () => store.dispatch(openProgram({ id: "shutdown", meta: { bottomNav: false }, value: null }))
     store.subscribe(s => setPrograms(Object.values(s.programs)))
-
     return (
         <>
             {menuVisible && (
@@ -43,12 +43,14 @@ export const BottomNav: React.FC = () => {
             <BottomNavWrapper>
                 <StartButton onClick={toggleMenu}>Start</StartButton>
                 <ProgramsWrapper>
-                    {programs.map(p => (
-                        <ProgramNavShortcut key={p.id}>
-                            <ProgramNavShortcutIcon />
-                            {p.id}
-                        </ProgramNavShortcut>
-                    ))}
+                    {programs
+                        .filter(p => p.meta.bottomNav)
+                        .map(p => (
+                            <ProgramNavShortcut key={p.id}>
+                                <ProgramNavShortcutIcon />
+                                {p.id}
+                            </ProgramNavShortcut>
+                        ))}
                 </ProgramsWrapper>
                 <SystemTime />
             </BottomNavWrapper>

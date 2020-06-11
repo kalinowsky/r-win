@@ -1,5 +1,5 @@
 import { SystemStatus } from "./components/App"
-import { programs } from "./domain"
+import { Program } from "./domain"
 
 type setStatusType = (s: SystemStatus) => { name: "SET_STATUS"; payload: SystemStatus }
 export const setStatus: setStatusType = s => ({
@@ -7,19 +7,15 @@ export const setStatus: setStatusType = s => ({
     payload: s
 })
 
-export type openProgramType = (
-    id: programs,
-    value?: string
-) => { name: "OPEN_PROGRAM"; payload: { id: programs; value: string } }
-export const openProgram: openProgramType = (id, value) => ({
+export type openProgramType = (id: Program) => { name: "OPEN_PROGRAM"; payload: Program }
+export const openProgram: openProgramType = p => ({
     name: "OPEN_PROGRAM",
-    payload: {
-        id,
-        value
-    }
+    payload: p
 })
 
-export type closeProgramType = (id: programs) => { name: "CLOSE_PROGRAM"; payload: { id: programs } }
+export type closeProgramType = (
+    id: Pick<Program, "id">["id"]
+) => { name: "CLOSE_PROGRAM"; payload: Pick<Program, "id"> }
 export const closeProgram: closeProgramType = id => ({
     name: "CLOSE_PROGRAM",
     payload: { id }

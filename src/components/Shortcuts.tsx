@@ -1,13 +1,13 @@
 import * as React from "react"
 import styled from "styled-components"
-import { programs } from "../domain"
+import { Program } from "../domain"
 import { store } from "./App"
 import { openProgram } from "../actions"
 
 type Shortcut = {
     name: string
     filename: string
-    program: programs
+    program: Program
     value?: string
 }
 
@@ -15,13 +15,26 @@ const SHORTCUTS: Shortcut[] = [
     {
         name: "README",
         filename: "notepad.svg",
-        program: "notepad",
-        value: "asd"
+        program: {
+            id: "notepad",
+            meta: {
+                bottomNav: true
+            },
+            value: {
+                text: "default"
+            }
+        }
     },
     {
         name: "SHUTDOWN TEST",
         filename: "notepad.svg",
-        program: "shutdown"
+        program: {
+            id: "shutdown",
+            meta: {
+                bottomNav: false
+            },
+            value: null
+        }
     }
 ]
 
@@ -34,7 +47,7 @@ export const Shortcuts: React.FC = () => {
                     key={s.name}
                     onClick={() => setSelected(s.name)}
                     onDoubleClick={() => {
-                        store.dispatch(openProgram(s.program, s.value))
+                        store.dispatch(openProgram(s.program))
                     }}>
                     <Shortcut name={s.name} filename={s.filename} selected={s.name === selected} />
                 </ShortcutIconWrapper>
