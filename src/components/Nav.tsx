@@ -19,7 +19,8 @@ export const BottomNav: React.FC = () => {
     const [menuVisible, setMenuVisible] = React.useState<boolean>(false)
     const toggleMenu = () => setMenuVisible(!menuVisible)
     const shutdown = () => store.dispatch(openProgram({ id: "shutdown", meta: { bottomNav: false }, value: null }))
-    store.subscribe(s => setPrograms(Object.values(s.programs)))
+    const unsubscribe = store.subscribe(s => setPrograms(Object.values(s.programs)))
+    React.useEffect(() => unsubscribe)
     return (
         <>
             {menuVisible && (

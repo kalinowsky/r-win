@@ -6,9 +6,10 @@ import { Notepad } from "./Notepad"
 
 export const Programs: React.FC = () => {
     const [programs, setPrograms] = React.useState({})
-    store.subscribe(s => {
+    const unsubscribe = store.subscribe(s => {
         setPrograms(s.programs)
     })
+    React.useEffect(() => unsubscribe)
     return (
         <>
             {Object.keys(programs).includes("shutdown") && (
