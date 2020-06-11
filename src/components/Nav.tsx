@@ -14,9 +14,12 @@ const StartButton = styled(Button)`
 `
 
 export const BottomNav: React.FC = () => {
+    const [programs, setPrograms] = React.useState<any[]>([])
     const [menuVisible, setMenuVisible] = React.useState<boolean>(false)
     const toggleMenu = () => setMenuVisible(!menuVisible)
     const shutdown = () => store.dispatch(openProgram("shutdown"))
+    store.subscribe(s => setPrograms(Object.values(s.programs)))
+
     return (
         <>
             {menuVisible && (
@@ -39,11 +42,37 @@ export const BottomNav: React.FC = () => {
             )}
             <BottomNavWrapper>
                 <StartButton onClick={toggleMenu}>Start</StartButton>
+                <ProgramsWrapper>
+                    {programs.map(p => (
+                        <ProgramNavShortcut key={p.id}>
+                            <ProgramNavShortcutIcon />
+                            {p.id}
+                        </ProgramNavShortcut>
+                    ))}
+                </ProgramsWrapper>
                 <SystemTime />
             </BottomNavWrapper>
         </>
     )
 }
+
+const ProgramsWrapper = styled.div`
+    width: 100%;
+    flex: 1;
+`
+
+const ProgramNavShortcut = styled(Button)`
+    min-width: 100px;
+    max-width: 200px;
+    width: 100%;
+    height: 26px;
+    margin-left: 4px;
+    font-size: 20px;
+    font-weight: 300;
+    font-family: "Pixelated MS Sans Serif";
+`
+
+const ProgramNavShortcutIcon = styled.img``
 
 const BottomNavWrapper = styled.div`
     width: 100%;

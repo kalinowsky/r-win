@@ -7,7 +7,7 @@ import { Boot, ShutDown } from "./SystemBoot"
 import { createStore } from "../store"
 import { actions } from "@/actions"
 import { SMap } from "@/types"
-import { programs } from "@/programs"
+import { programs } from "@/domain"
 import { filterObject } from "../utils"
 
 const GlobalStyle = createGlobalStyle`
@@ -68,10 +68,10 @@ const reducer = (s: State, a: Action) => {
         return { ...s, status: a.payload }
     }
     if (a.name === "OPEN_PROGRAM") {
-        return { ...s, programs: { [a.payload]: { id: a.payload } } }
+        return { ...s, programs: { ...s.programs, [a.payload.id]: a.payload } }
     }
     if (a.name === "CLOSE_PROGRAM") {
-        return { ...s, programs: filterObject(s.programs, p => p.id !== a.payload) }
+        return { ...s, programs: filterObject(s.programs, p => p.id !== a.payload.id) }
     }
     return s
 }

@@ -8,9 +8,10 @@ export const Notepad: React.FC = () => {
     const dismiss = () => {
         store.dispatch(closeProgram("notepad"))
     }
+    const { notepad } = store.getState().programs
     return (
         <Window title="Notepad" onClose={dismiss} height="400px" width="600px">
-            <TextArea></TextArea>
+            <TextArea defaultValue={notepad.value}></TextArea>
         </Window>
     )
 }

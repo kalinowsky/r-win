@@ -1,5 +1,5 @@
 import { SystemStatus } from "./components/App"
-import { programs } from "./programs"
+import { programs } from "./domain"
 
 type setStatusType = (s: SystemStatus) => { name: "SET_STATUS"; payload: SystemStatus }
 export const setStatus: setStatusType = s => ({
@@ -7,16 +7,22 @@ export const setStatus: setStatusType = s => ({
     payload: s
 })
 
-export type openProgramType = (id: programs) => { name: "OPEN_PROGRAM"; payload: programs }
-export const openProgram: openProgramType = id => ({
+export type openProgramType = (
+    id: programs,
+    value?: string
+) => { name: "OPEN_PROGRAM"; payload: { id: programs; value: string } }
+export const openProgram: openProgramType = (id, value) => ({
     name: "OPEN_PROGRAM",
-    payload: id
+    payload: {
+        id,
+        value
+    }
 })
 
-export type closeProgramType = (id: programs) => { name: "CLOSE_PROGRAM"; payload: programs }
+export type closeProgramType = (id: programs) => { name: "CLOSE_PROGRAM"; payload: { id: programs } }
 export const closeProgram: closeProgramType = id => ({
     name: "CLOSE_PROGRAM",
-    payload: id
+    payload: { id }
 })
 
 export type actions = setStatusType | openProgramType | closeProgramType
