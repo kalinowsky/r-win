@@ -10,6 +10,8 @@ type WindowProps = {
     onMin?: () => void
     width?: string
     height?: string
+    nav?: React.ReactFragment
+    borderWidth?: "small" | "large"
 }
 
 export const Window: React.FC<WindowProps> = p => (
@@ -36,7 +38,8 @@ export const Window: React.FC<WindowProps> = p => (
                     )}
                 </ActionWrapper>
             </Navigation>
-            <Content>{p.children}</Content>
+            {p.nav}
+            <Content borderWidth={p.borderWidth}>{p.children}</Content>
         </WindowWrapper>
     </>
 )
@@ -67,9 +70,9 @@ const Navigation = styled.div`
     box-sizing: border-box;
 `
 
-const Content = styled.div`
-    margin: 8px;
-    height: calc(100% - 20px);
+const Content = styled.div<{ borderWidth: "small" | "large" }>`
+    margin: ${p => (p.borderWidth === "small" ? "2px" : "8px")};
+    height: ${p => `calc(100% - ${p.borderWidth === "small" ? 8 : 20}px);`};
 `
 
 const ActionWrapper = styled.div`
@@ -121,4 +124,17 @@ export const Overlay = styled.div`
     width: 100vw;
     height: 100vh;
     background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAJ0lEQVQYV2NkYGBoYGBg2MyAAL6MDAwMxkgCYCayoC9MB06VGGYCAPbjBJ9CSv2BAAAAAElFTkSuQmCC);
+`
+
+export const NavBelt = styled.div`
+    height: 20px;
+    display: flex;
+    padding: 6px;
+    box-sizing: border-box;
+    font-size: 12px;
+`
+
+export const NavOption = styled.div`
+    cursor: not-allowed;
+    margin-right: 8px;
 `

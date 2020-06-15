@@ -1,5 +1,5 @@
 import * as React from "react"
-import { Window } from "../common/Window"
+import { Window, NavBelt, NavOption } from "../common/Window"
 import { store } from "../App"
 import { closeProgram } from "../../actions"
 import styled from "styled-components"
@@ -10,7 +10,20 @@ export const Notepad: React.FC = () => {
     }
     const { notepad } = store.getState().programs
     return (
-        <Window title="Notepad" onClose={dismiss} height="400px" width="600px">
+        <Window
+            title="Notepad"
+            onClose={dismiss}
+            height="400px"
+            width="600px"
+            borderWidth="small"
+            nav={
+                <NavBelt>
+                    <NavOption>File</NavOption>
+                    <NavOption>Edit</NavOption>
+                    <NavOption>Format</NavOption>
+                    <NavOption>Help</NavOption>
+                </NavBelt>
+            }>
             <TextArea defaultValue={notepad.value.text}></TextArea>
         </Window>
     )
@@ -26,7 +39,7 @@ const TextArea = styled.textarea`
     appearance: none;
     border-radius: 0;
     width: 100%;
-    height: calc(100% - 16px);
+    height: calc(100% - 36px);
     & {
         resize: none;
         outline: none;

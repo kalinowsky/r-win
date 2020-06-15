@@ -125,7 +125,7 @@ const reducer = (s: State, a: Action) => {
         }
     }
     if (a.name === "CLOSE_PROGRAM") {
-        return { ...s, programs: filterObject(s.programs, p => p.id !== a.payload.id) }
+        return { ...s, programs: filterObject<SMap<Program>, Program>(s.programs, p => p.id !== a.payload.id) }
     }
     return s
 }
