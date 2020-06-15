@@ -1,7 +1,7 @@
 import * as React from "react"
 import { Window, NavBelt, NavOption } from "../common/Window"
 import { store } from "../App"
-import { closeProgram } from "../../actions"
+import { closeProgram, openProgram } from "../../actions"
 import styled from "styled-components"
 
 export const Notepad: React.FC = () => {
@@ -17,7 +17,20 @@ export const Notepad: React.FC = () => {
             width="600px"
             borderWidth="small"
             nav={
-                <NavBelt>
+                <NavBelt
+                    onClick={() =>
+                        store.dispatch(
+                            openProgram({
+                                id: "error",
+                                meta: { bottomNav: false },
+                                value: {
+                                    text: "Feature is not implemented yet, sorry",
+                                    buttonText: "Okey",
+                                    title: "Not implemented error"
+                                }
+                            })
+                        )
+                    }>
                     <NavOption>File</NavOption>
                     <NavOption>Edit</NavOption>
                     <NavOption>Format</NavOption>

@@ -24,17 +24,6 @@ const SHORTCUTS: Shortcut[] = [
                 text: "default"
             }
         }
-    },
-    {
-        name: "SHUTDOWN TEST",
-        filename: "notepad.svg",
-        program: {
-            id: "shutdown",
-            meta: {
-                bottomNav: false
-            },
-            value: null
-        }
     }
 ]
 

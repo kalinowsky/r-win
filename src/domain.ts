@@ -16,4 +16,16 @@ type ShutdownProgram = {
     value: null
 }
 
-export type Program = NotepadProgram | ShutdownProgram
+type NotImplementedError = {
+    id: "error"
+    meta: {
+        bottomNav: boolean
+    }
+    value: {
+        text: string
+        buttonText: string
+        title: string
+    }
+}
+
+export type Program = NotepadProgram | ShutdownProgram | NotImplementedError

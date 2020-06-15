@@ -1,11 +1,14 @@
 import * as React from "react"
-import { ShutdownDialog } from "./ShutdownDialog"
-import { store } from "../App"
 import styled from "styled-components"
+import { Program } from "@/domain"
+import { SMap } from "@/types"
+import { store } from "../App"
 import { Notepad } from "./Notepad"
+import { ShutdownDialog } from "./ShutdownDialog"
+import { Error } from "./Error"
 
 export const Programs: React.FC = () => {
-    const [programs, setPrograms] = React.useState({})
+    const [programs, setPrograms] = React.useState<SMap<Program>>({})
     const unsubscribe = store.subscribe(s => {
         setPrograms(s.programs)
     })
@@ -20,6 +23,11 @@ export const Programs: React.FC = () => {
             {Object.keys(programs).includes("notepad") && (
                 <ProgramWrapper>
                     <Notepad />
+                </ProgramWrapper>
+            )}
+            {Object.keys(programs).includes("error") && (
+                <ProgramWrapper>
+                    <Error />
                 </ProgramWrapper>
             )}
         </>
