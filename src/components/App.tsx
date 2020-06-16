@@ -90,6 +90,15 @@ const GlobalStyle = createGlobalStyle`
     box-shadow: inset -1px -1px #0a0a0a, inset 1px 1px #fff, inset -2px -2px grey, inset 2px 2px #dfdfdf;
     cursor: pointer;
     }
+    [draggable] {
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+    /* Required to make elements draggable in old WebKit */
+    -khtml-user-drag: element;
+    -webkit-user-drag: element;
+    }
 `
 
 export type SystemStatus = "BOOTING" | "DESKTOP" | "SHUTDOWN"

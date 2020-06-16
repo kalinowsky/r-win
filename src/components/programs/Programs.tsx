@@ -15,21 +15,11 @@ export const Programs: React.FC = () => {
     React.useEffect(() => unsubscribe)
     return (
         <>
-            {Object.keys(programs).includes("shutdown") && (
-                <ProgramWrapper>
-                    <ShutdownDialog />
-                </ProgramWrapper>
-            )}
-            {Object.keys(programs).includes("notepad") && (
-                <ProgramWrapper>
-                    <Notepad />
-                </ProgramWrapper>
-            )}
-            {Object.keys(programs).includes("error") && (
-                <ProgramWrapper>
-                    <Error />
-                </ProgramWrapper>
-            )}
+            <ProgramWrapper onDragOver={e => e.preventDefault()}>
+                {Object.keys(programs).includes("shutdown") && <ShutdownDialog />}
+                {Object.keys(programs).includes("notepad") && <Notepad />}
+                {Object.keys(programs).includes("error") && <Error />}
+            </ProgramWrapper>
         </>
     )
 }

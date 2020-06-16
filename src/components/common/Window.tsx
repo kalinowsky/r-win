@@ -1,5 +1,6 @@
 import * as React from "react"
 import styled from "styled-components"
+import ReactDOM from "react-dom"
 
 type WindowProps = {
     title: string
@@ -13,36 +14,75 @@ type WindowProps = {
     nav?: React.ReactFragment
     borderWidth?: "small" | "large"
 }
+type Position = { left: number; top: number }
 
-export const Window: React.FC<WindowProps> = p => (
-    <>
-        {p.overlay && <Overlay />}
-        <WindowWrapper width={p.width} height={p.height}>
-            <Navigation>
-                <div>{p.title}</div>
-                <ActionWrapper>
-                    {p.onMax && (
-                        <Action>
-                            <ActionIconMinimize onClick={p.onMin} />
-                        </Action>
-                    )}
-                    {p.onMax && (
-                        <Action>
-                            <ActionIconMaximize onClick={p.onMax} />
-                        </Action>
-                    )}
-                    {p.onClose && (
-                        <Action onClick={p.onClose}>
-                            <ActionIconClose />
-                        </Action>
-                    )}
-                </ActionWrapper>
-            </Navigation>
-            {p.nav}
-            <Content borderWidth={p.borderWidth}>{p.children}</Content>
-        </WindowWrapper>
-    </>
-)
+export const Window: React.FC<WindowProps> = p => {
+    const [isDragged, setDragged] = React.useState(false)
+    const [position, setPosition] = React.useState<Position | null>(null)
+    const [positionDetlta, setPositionDelta] = React.useState<Position | null>(null)
+    const window = React.useRef(null)
+
+    const onDrag = (e: React.DragEvent<HTMLDivElement>) => {
+        e.preventDefault()
+        setDragged(true)
+    }
+
+    const onDragStart = (e: React.DragEvent<HTMLDivElement>) => {
+        const windowElement = window.current
+        setPositionDelta({
+            left: windowElement.offsetLeft - e.clientX,
+            top: windowElement.offsetTop - e.clientY
+        })
+    }
+
+    const onDragEnd = (e: React.DragEvent<HTMLDivElement>) => {
+        e.preventDefault()
+        e.stopPropagation()
+        setDragged(false)
+        setPosition({ left: e.clientX + positionDetlta.left, top: e.clientY + positionDetlta.top })
+    }
+    return (
+        <>
+            {p.overlay && <Overlay />}
+            <WindowWrapper
+                ref={window}
+                width={p.width}
+                height={p.height}
+                draggable
+                onDrag={onDrag}
+                onDragStart={onDragStart}
+                onDragEnd={onDragEnd}
+                style={{
+                    display: isDragged ? "none" : "block",
+                    top: position && position.top + "px",
+                    left: position && position.left + "px"
+                }}>
+                <Navigation>
+                    <div>{p.title}</div>
+                    <ActionWrapper>
+                        {p.onMax && (
+                            <Action>
+                                <ActionIconMinimize onClick={p.onMin} />
+                            </Action>
+                        )}
+                        {p.onMax && (
+                            <Action>
+                                <ActionIconMaximize onClick={p.onMax} />
+                            </Action>
+                        )}
+                        {p.onClose && (
+                            <Action onClick={p.onClose}>
+                                <ActionIconClose />
+                            </Action>
+                        )}
+                    </ActionWrapper>
+                </Navigation>
+                {p.nav}
+                <Content borderWidth={p.borderWidth}>{p.children}</Content>
+            </WindowWrapper>
+        </>
+    )
+}
 
 const WindowWrapper = styled.div<{ height?: string; width?: string }>`
     height: ${p => p.height || "auto"};
