@@ -4,7 +4,7 @@ import { SystemTime } from "./SystemTime"
 import { Button } from "./common/Button"
 import { store } from "./App"
 import { openProgram } from "../actions"
-import { Program } from "@/domain"
+import { useGlobalState } from "../state"
 
 const StartButton = styled(Button)`
     height: 32px;
@@ -15,12 +15,11 @@ const StartButton = styled(Button)`
 `
 
 export const BottomNav: React.FC = () => {
-    const [programs, setPrograms] = React.useState<Program[]>([])
     const [menuVisible, setMenuVisible] = React.useState<boolean>(false)
     const toggleMenu = () => setMenuVisible(!menuVisible)
     const shutdown = () => store.dispatch(openProgram({ id: "shutdown", meta: { bottomNav: false }, value: null }))
-    const unsubscribe = store.subscribe(s => setPrograms(Object.values(s.programs)))
-    React.useEffect(() => unsubscribe)
+    const { state } = useGlobalState()
+    const programs = Object.values(state.programs)
     return (
         <>
             {menuVisible && (

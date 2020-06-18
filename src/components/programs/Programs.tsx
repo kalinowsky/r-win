@@ -1,18 +1,13 @@
 import * as React from "react"
 import styled from "styled-components"
-import { Program } from "@/domain"
-import { SMap } from "@/types"
-import { store } from "../App"
 import { Notepad } from "./Notepad"
 import { ShutdownDialog } from "./ShutdownDialog"
 import { Error } from "./Error"
+import { useGlobalState } from "../../state"
 
 export const Programs: React.FC = () => {
-    const [programs, setPrograms] = React.useState<SMap<Program>>({})
-    const unsubscribe = store.subscribe(s => {
-        setPrograms(s.programs)
-    })
-    React.useEffect(() => unsubscribe)
+    const { state } = useGlobalState()
+    const programs = state.programs
     return (
         <>
             <ProgramWrapper onDragOver={e => e.preventDefault()}>

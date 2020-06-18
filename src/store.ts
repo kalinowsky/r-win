@@ -15,6 +15,7 @@ export const createStore = <TState>(reducer: (s: TState, action: Action) => TSta
     const getState = (): TState => _state
 
     const dispatch = (action: Action) => {
+        console.log(Object.keys(_listeners).length, { _listeners })
         _state = reducer(_state, action)
         Object.values(_listeners).forEach((l: Listener) => l(_state))
     }

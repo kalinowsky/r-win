@@ -29,3 +29,5 @@ type NotImplementedError = {
 }
 
 export type Program = NotepadProgram | ShutdownProgram | NotImplementedError
+
+export type SystemStatus = "BOOTING" | "DESKTOP" | "SHUTDOWN"

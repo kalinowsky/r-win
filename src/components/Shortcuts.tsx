@@ -1,8 +1,8 @@
 import * as React from "react"
 import styled from "styled-components"
 import { Program } from "../domain"
-import { store } from "./App"
 import { openProgram } from "../actions"
+import { store } from "./App"
 
 type Shortcut = {
     name: string

@@ -1,5 +1,7 @@
-import { SystemStatus } from "./components/App"
-import { Program } from "./domain"
+import { Program, SystemStatus } from "./domain"
+import { filterObject } from "./utils"
+import { SMap } from "./types"
+import { State } from "./state"
 
 type setStatusType = (s: SystemStatus) => { name: "SET_STATUS"; payload: SystemStatus }
 export const setStatus: setStatusType = s => ({
@@ -22,3 +24,23 @@ export const closeProgram: closeProgramType = id => ({
 })
 
 export type actions = setStatusType | openProgramType | closeProgramType
+
+type Action = ReturnType<actions>
+export const reducer = (s: State, a: Action) => {
+    if (a.name === "SET_STATUS") {
+        return { ...s, status: a.payload }
+    }
+    if (a.name === "OPEN_PROGRAM") {
+        return {
+            ...s,
+            programs: {
+                ...s.programs,
+                [a.payload.id]: a.payload
+            }
+        }
+    }
+    if (a.name === "CLOSE_PROGRAM") {
+        return { ...s, programs: filterObject<SMap<Program>, Program>(s.programs, p => p.id !== a.payload.id) }
+    }
+    return s
+}

@@ -3,12 +3,15 @@ import { Window, NavBelt, NavOption } from "../common/Window"
 import { store } from "../App"
 import { closeProgram, openProgram } from "../../actions"
 import styled from "styled-components"
+import { useGlobalState } from "@/state"
 
 export const Notepad: React.FC = () => {
     const dismiss = () => {
         store.dispatch(closeProgram("notepad"))
     }
-    const { notepad } = store.getState().programs
+    // const { notepad } = store.getState().programs
+    const { state } = useGlobalState()
+    const { notepad } = state.programs
     return (
         <Window
             title="Notepad"
