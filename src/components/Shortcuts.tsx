@@ -42,19 +42,19 @@ export const Shortcuts: React.FC = () => {
                 </ShortcutIconWrapper>
             ))}
 
-            <LoseFocusArea onClick={() => setSelected("")}></LoseFocusArea>
+            {selected && <LoseFocusArea onClick={() => setSelected("")}></LoseFocusArea>}
         </Wrapper>
     )
 }
 
 const ShortcutIconWrapper = styled.div`
-    z-index: 1;
+    z-index: ${p => p.theme.zIndex.shortcuts};
     max-height: 80px;
     margin: 10px;
 `
 
 const LoseFocusArea = styled.div`
-    z-index: 0;
+    z-index: ${p => p.theme.zIndex.loseFocusArea};
     width: 100%;
     height: 100%;
     position: fixed;

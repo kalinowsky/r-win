@@ -60,7 +60,7 @@ const Wrapper = styled.div`
     justify-content: center;
     align-items: center;
     background-color: #000;
-    z-index: 10;
+    z-index: ${p => p.theme.zIndex.resolutionGuard};
 
     p {
         margin: 20px;

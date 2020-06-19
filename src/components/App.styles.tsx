@@ -1,5 +1,45 @@
 import styled, { createGlobalStyle } from "styled-components"
 
+export { ThemeProvider } from "styled-components"
+
+declare module "styled-components" {
+    export interface DefaultTheme extends DT {}
+}
+type DT = typeof defaultTheme
+
+const colors = {
+    transparent: "transparent",
+    primary: "#1084d0"
+}
+
+const zIndex = {
+    low: 1,
+    loseFocusArea: 10,
+    menu: 10,
+    shortcuts: 20,
+    windowOverlay: 25,
+    window: 50,
+    resolutionGuard: 100
+}
+
+const config = {
+    boxShadow: "inset -1px -1px #0a0a0a, inset 1px 1px #fff, inset -2px -2px grey, inset 2px 2px #dfdfdf",
+    boxShadowActive: "inset -1px -1px #fff, inset 1px 1px #0a0a0a, inset -2px -2px #dfdfdf, inset 2px 2px grey;",
+    boxShadowLight: "inset -1px -1px #0a0a0a, inset 1px 1px #dfdfdf, inset -2px -2px grey, inset 2px 2px #fff",
+    horizontalGradient: `linear-gradient(90deg, navy, ${colors.primary})`,
+    verticalGradient: `linear-gradient(180deg, navy, ${colors.primary})`
+}
+
+export type ThemeColors = typeof colors
+export type ThemeConfig = typeof config
+export type ThemeZIndex = typeof zIndex
+
+export const defaultTheme = {
+    colors,
+    config,
+    zIndex
+}
+
 export const GlobalStyle = createGlobalStyle`
 html, body {
   margin: 0px;

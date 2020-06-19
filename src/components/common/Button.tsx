@@ -2,7 +2,7 @@ import styled from "styled-components"
 
 export const Button = styled.button`
     background: silver;
-    box-shadow: inset -1px -1px #0a0a0a, inset 1px 1px #fff, inset -2px -2px grey, inset 2px 2px #dfdfdf;
+    box-shadow: ${p => p.theme.config.boxShadow};
 
     box-sizing: border-box;
     border: none;
@@ -12,7 +12,7 @@ export const Button = styled.button`
     padding: 0 12px;
 
     &:active {
-        box-shadow: inset -1px -1px #fff, inset 1px 1px #0a0a0a, inset -2px -2px #dfdfdf, inset 2px 2px grey;
+        box-shadow: ${p => p.theme.config.boxShadowActive};
         padding: 2px 11px 0 13px;
     }
 

@@ -82,7 +82,7 @@ const BottomNavWrapper = styled.div`
     height: 38px;
     background-color: #bdbdbd;
     bottom: 0px;
-    box-shadow: inset -1px -1px #0a0a0a, inset 1px 1px #dfdfdf, inset -2px -2px grey, inset 2px 2px #fff;
+    box-shadow: ${p => p.theme.config.boxShadowLight};
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -92,7 +92,7 @@ const MenuArea = styled.div`
     position: fixed;
     width: 100%;
     height: 100%;
-    z-index: 1;
+    z-index: ${p => p.theme.zIndex.low};
 `
 
 const MenuWrapper = styled.div`
@@ -100,11 +100,11 @@ const MenuWrapper = styled.div`
     height: 400px;
     display: flex;
     background-color: #bdbdbd;
-    z-index: 10;
+    z-index: ${p => p.theme.zIndex.menu};
     position: absolute;
     bottom: 34px;
     left: 4px;
-    box-shadow: inset -1px -1px #0a0a0a, inset 1px 1px #dfdfdf, inset -2px -2px grey, inset 2px 2px #fff;
+    box-shadow: ${p => p.theme.config.boxShadowLight};
 
     animation-name: expand-to-top;
     animation-duration: 0.3s;
@@ -123,7 +123,7 @@ const GradientBelt = styled.div`
     width: 30px;
     height: calc(100% - 5px);
     position: relative;
-    background: linear-gradient(180deg, navy, #1084d0);
+    background: ${p => p.theme.config.verticalGradient};
     margin: 2px;
 `
 
@@ -159,9 +159,9 @@ const ExpandableItemComponent: React.FC = p => {
 
 const ExpandedMenu = styled.div`
     background-color: #bdbdbd;
-    z-index: 10;
+    z-index: ${p => p.theme.zIndex.menu};
     position: relative;
-    box-shadow: inset -1px -1px #0a0a0a, inset 1px 1px #dfdfdf, inset -2px -2px grey, inset 2px 2px #fff;
+    box-shadow: ${p => p.theme.config.boxShadowLight};
     left: 210px;
     min-height: 40px;
     top: 40px;

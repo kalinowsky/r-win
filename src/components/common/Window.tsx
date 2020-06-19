@@ -88,15 +88,15 @@ const WindowWrapper = styled.div<{ height?: string; width?: string }>`
     width: ${p => p.width || "300px"};
     position: fixed;
     min-height: 40px;
-    box-shadow: inset -1px -1px #0a0a0a, inset 1px 1px #dfdfdf, inset -2px -2px grey, inset 2px 2px #fff;
+    box-shadow: ${p => p.theme.config.boxShadowLight};
     background: silver;
     padding: 3px;
-    z-index: 5;
+    z-index: ${p => p.theme.zIndex.window};
 `
 
 const Navigation = styled.div`
     height: 20px;
-    background: linear-gradient(90deg, navy, #1084d0);
+    background: ${p => p.theme.config.horizontalGradient};
     padding: 3px 2px 3px 3px;
     display: flex;
     justify-content: space-between;
@@ -127,10 +127,10 @@ const Action = styled.div`
     margin: 1px;
 
     background: silver;
-    box-shadow: inset -1px -1px #0a0a0a, inset 1px 1px #fff, inset -2px -2px grey, inset 2px 2px #dfdfdf;
+    box-shadow: ${p => p.theme.config.boxShadow};
 
     &:active {
-        box-shadow: inset -1px -1px #fff, inset 1px 1px #0a0a0a, inset -2px -2px #dfdfdf, inset 2px 2px grey;
+        box-shadow: ${p => p.theme.config.boxShadowActive};
     }
 `
 
@@ -159,10 +159,10 @@ export const Overlay = styled.div`
     justify-content: center;
     align-items: center;
     display: flex;
-    z-index: 1;
+    z-index: ${p => p.theme.zIndex.windowOverlay};
     width: 100vw;
     height: 100vh;
-    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAJ0lEQVQYV2NkYGBoYGBg2MyAAL6MDAwMxkgCYCayoC9MB06VGGYCAPbjBJ9CSv2BAAAAAElFTkSuQmCC);
+    background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAJ0lEQVQYV2NkYGBoYGBg2MyAAL6MDAwMxkgCYCayoC9MB06VGGYCAPbjBJ9CSv2BAAAAAElFTkSuQmCC");
 `
 
 export const NavBelt = styled.div`
