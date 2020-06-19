@@ -20,7 +20,7 @@ export const getInitialState = (): State => ({
 })
 
 export const useGlobalState = () => {
-    const [state, setState] = React.useState<State>(getInitialState())
+    const [state, setState] = React.useState<State>(store.getState())
     const unsubscribe = store.subscribe(s => setState(s))
     React.useEffect(() => unsubscribe)
 
