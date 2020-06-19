@@ -19,7 +19,7 @@ export const ShutdownDialog: React.FC = () => {
         store.dispatch(closeProgram("shutdown"))
     }
     return (
-        <Window title="Shut Down System" onClose={dismiss} overlay>
+        <Window title="Shut Down System" onClose={dismiss} overlay primary>
             <Radio
                 title="What Do you want this tab to do?"
                 onChange={setAction}

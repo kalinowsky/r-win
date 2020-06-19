@@ -12,6 +12,7 @@ type WindowProps = {
     height?: string
     nav?: React.ReactFragment
     borderWidth?: "small" | "large"
+    primary?: boolean
 }
 type Position = { left: number; top: number }
 
@@ -42,7 +43,7 @@ export const Window: React.FC<WindowProps> = p => {
     }
     return (
         <>
-            {p.overlay && <Overlay />}
+            {p.overlay && <Overlay primary={p.primary} />}
             <WindowWrapper
                 ref={window}
                 width={p.width}
@@ -55,7 +56,8 @@ export const Window: React.FC<WindowProps> = p => {
                     display: isDragged ? "none" : "block",
                     top: position && position.top + "px",
                     left: position && position.left + "px"
-                }}>
+                }}
+                primary={p.primary}>
                 <Navigation>
                     <div>{p.title}</div>
                     <ActionWrapper>
@@ -83,7 +85,7 @@ export const Window: React.FC<WindowProps> = p => {
     )
 }
 
-const WindowWrapper = styled.div<{ height?: string; width?: string }>`
+const WindowWrapper = styled.div<{ height?: string; width?: string; primary?: boolean }>`
     height: ${p => p.height || "auto"};
     width: ${p => p.width || "300px"};
     position: fixed;
@@ -91,7 +93,7 @@ const WindowWrapper = styled.div<{ height?: string; width?: string }>`
     box-shadow: ${p => p.theme.config.boxShadowLight};
     background: silver;
     padding: 3px;
-    z-index: ${p => p.theme.zIndex.window};
+    z-index: ${p => (p.primary ? p.theme.zIndex.windowError : p.theme.zIndex.window)};
 `
 
 const Navigation = styled.div`
@@ -154,12 +156,12 @@ const ActionIconClose = styled(ActionIconBase)`
     background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg width='8' height='7' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M0 0h2v1h1v1h2V1h1V0h2v1H7v1H6v1H5v1h1v1h1v1h1v1H6V6H5V5H3v1H2v1H0V6h1V5h1V4h1V3H2V2H1V1H0V0z' fill='%23000'/%3E%3C/svg%3E");
 `
 
-export const Overlay = styled.div`
+export const Overlay = styled.div<{ primary?: boolean }>`
     position: fixed;
     justify-content: center;
     align-items: center;
     display: flex;
-    z-index: ${p => p.theme.zIndex.windowOverlay};
+    z-index: ${p => (p.primary ? p.theme.zIndex.windowOverlayError : p.theme.zIndex.windowOverlay)};
     width: 100vw;
     height: 100vh;
     background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAJ0lEQVQYV2NkYGBoYGBg2MyAAL6MDAwMxkgCYCayoC9MB06VGGYCAPbjBJ9CSv2BAAAAAElFTkSuQmCC");

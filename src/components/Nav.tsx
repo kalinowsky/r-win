@@ -6,14 +6,6 @@ import { store } from "./App"
 import { openProgram } from "../actions"
 import { useGlobalState } from "../state"
 
-const StartButton = styled(Button)`
-    height: 32px;
-    margin-left: 4px;
-    font-size: 20px;
-    font-weight: 300;
-    font-family: "Pixelated MS Sans Serif";
-`
-
 export const BottomNav: React.FC = () => {
     const [menuVisible, setMenuVisible] = React.useState<boolean>(false)
     const toggleMenu = () => setMenuVisible(!menuVisible)
@@ -58,6 +50,13 @@ export const BottomNav: React.FC = () => {
     )
 }
 
+const StartButton = styled(Button)`
+    height: 32px;
+    margin-left: 4px;
+    font-size: 20px;
+    font-weight: 300;
+    font-family: "Pixelated MS Sans Serif";
+`
 const ProgramsWrapper = styled.div`
     width: 100%;
     flex: 1;

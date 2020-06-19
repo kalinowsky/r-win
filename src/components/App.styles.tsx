@@ -19,6 +19,8 @@ const zIndex = {
     shortcuts: 20,
     windowOverlay: 25,
     window: 50,
+    windowOverlayError: 75,
+    windowError: 85,
     resolutionGuard: 100
 }
 

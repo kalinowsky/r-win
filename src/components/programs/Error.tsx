@@ -13,7 +13,7 @@ export const Error: React.FC = () => {
     if (error.id !== "error") return null
 
     return (
-        <Window title={error.value.title} onClose={dismiss} overlay>
+        <Window title={error.value.title} onClose={dismiss} overlay primary>
             <FlexView justify="center" align="center">
                 {error.value.text}
                 <ButtonWrapper>
