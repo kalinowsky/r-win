@@ -15,10 +15,10 @@ const colors = {
 const zIndex = {
     low: 1,
     loseFocusArea: 10,
-    menu: 10,
     shortcuts: 20,
     windowOverlay: 25,
     window: 50,
+    menu: 60,
     windowOverlayError: 75,
     windowError: 85,
     resolutionGuard: 100

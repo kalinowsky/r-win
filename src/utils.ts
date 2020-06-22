@@ -23,3 +23,5 @@ export const filterObject = <T extends SMap<V>, V extends any>(o: T, v: (v: V) =
     })
     return nextObject
 }
+
+export const _noop = () => {}
