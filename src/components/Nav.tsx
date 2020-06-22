@@ -21,6 +21,7 @@ import {
     ExpandableItem,
     ExpandedMenu
 } from "./Nav.styles"
+import { Action } from "../store"
 
 type ExpandableItem = ValueState<
     "expandable",
@@ -38,77 +39,76 @@ type ActionItem = ValueState<
     }
 >
 
+const getSchema = (dispatch: (a: Action) => void): Array<ActionItem | ExpandableItem> => [
+    {
+        type: "expandable",
+        value: {
+            name: "Games",
+            children: [
+                {
+                    type: "expandable",
+                    value: {
+                        name: "Not Implemented",
+                        children: [
+                            {
+                                type: "action",
+                                value: {
+                                    name: "Saper",
+                                    onClick: _noop
+                                }
+                            }
+                        ]
+                    }
+                },
+                {
+                    type: "action",
+                    value: {
+                        name: "test name 4",
+                        onClick: _noop
+                    }
+                }
+            ]
+        }
+    },
+    {
+        type: "expandable",
+        value: {
+            name: "Programs",
+            children: [
+                {
+                    type: "action",
+                    value: {
+                        name: "Paint",
+                        onClick: _noop
+                    }
+                },
+                {
+                    type: "action",
+                    value: {
+                        name: "NotePad",
+                        onClick: () =>
+                            dispatch(openProgram({ id: "notepad", meta: { bottomNav: true }, value: { text: "" } }))
+                    }
+                }
+            ]
+        }
+    },
+    {
+        type: "action",
+        value: {
+            name: "Mock Position",
+            onClick: _noop
+        }
+    }
+]
+
 export const BottomNav: React.FC = () => {
     const [menuVisible, setMenuVisible] = React.useState<boolean>(false)
     const toggleMenu = () => setMenuVisible(!menuVisible)
     const shutdown = () => store.dispatch(openProgram({ id: "shutdown", meta: { bottomNav: false }, value: null }))
-    const { state } = useGlobalState()
+    const { state, dispatch } = useGlobalState()
     const programs = Object.values(state.programs)
-
-    const schema: Array<ActionItem | ExpandableItem> = [
-        {
-            type: "expandable",
-            value: {
-                name: "Games",
-                children: [
-                    {
-                        type: "expandable",
-                        value: {
-                            name: "Not Implemented",
-                            children: [
-                                {
-                                    type: "action",
-                                    value: {
-                                        name: "Saper",
-                                        onClick: _noop
-                                    }
-                                }
-                            ]
-                        }
-                    },
-                    {
-                        type: "action",
-                        value: {
-                            name: "test name 4",
-                            onClick: _noop
-                        }
-                    }
-                ]
-            }
-        },
-        {
-            type: "expandable",
-            value: {
-                name: "Programs",
-                children: [
-                    {
-                        type: "action",
-                        value: {
-                            name: "Paint",
-                            onClick: _noop
-                        }
-                    },
-                    {
-                        type: "action",
-                        value: {
-                            name: "NotePad",
-                            onClick: () =>
-                                store.dispatch(
-                                    openProgram({ id: "notepad", meta: { bottomNav: true }, value: { text: "" } })
-                                )
-                        }
-                    }
-                ]
-            }
-        },
-        {
-            type: "action",
-            value: {
-                name: "Mock Position",
-                onClick: _noop
-            }
-        }
-    ]
+    const schema = getSchema(dispatch)
 
     const renderSchema = (s: Array<ExpandableItem | ActionItem>): React.ReactNode => (
         <>
@@ -133,6 +133,7 @@ export const BottomNav: React.FC = () => {
             })}
         </>
     )
+
     return (
         <>
             {menuVisible && (
