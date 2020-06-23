@@ -175,11 +175,15 @@ export const BottomNav: React.FC = () => {
 const ExpandableItemComponent: React.FC<{ name: string }> = p => {
     const [expanded, setExpanded] = React.useState<boolean>(false)
     return (
-        <ExpandableItemWrapper>
+        <ExpandableItemWrapper onPointerLeave={() => setExpanded(false)}>
             <ExpandableItem onPointerLeave={() => setExpanded(false)} onPointerEnter={() => setExpanded(true)}>
                 {p.name}
             </ExpandableItem>
-            {expanded && <ExpandedMenu onPointerEnter={() => setExpanded(true)}>{p.children}</ExpandedMenu>}
+            {expanded && (
+                <ExpandedMenu onPointerLeave={() => setExpanded(false)} onPointerEnter={() => setExpanded(true)}>
+                    {p.children}
+                </ExpandedMenu>
+            )}
         </ExpandableItemWrapper>
     )
 }

@@ -5,15 +5,31 @@ import { openProgram } from "../actions"
 import { store } from "./App"
 
 type Shortcut = {
+    id: string
     name: string
     filename: string
-    program: Program
+    program: Program | null
     value?: string
 }
 
-const SHORTCUTS: Shortcut[] = [
+const schema: Shortcut[] = [
     {
-        name: "README",
+        id: "notepad-program",
+        name: "Notepad.exe",
+        filename: "notepad.svg",
+        program: {
+            id: "notepad",
+            meta: {
+                bottomNav: true
+            },
+            value: {
+                text: ""
+            }
+        }
+    },
+    {
+        id: "notepad-readme",
+        name: "README.txt",
         filename: "notepad.svg",
         program: {
             id: "notepad",
@@ -24,6 +40,12 @@ const SHORTCUTS: Shortcut[] = [
                 text: "default"
             }
         }
+    },
+    {
+        id: "github",
+        name: "Github.html",
+        filename: "github.png",
+        program: null
     }
 ]
 
@@ -31,12 +53,12 @@ export const Shortcuts: React.FC = () => {
     const [selected, setSelected] = React.useState<string>("")
     return (
         <Wrapper>
-            {SHORTCUTS.map(s => (
+            {schema.map(s => (
                 <ShortcutIconWrapper
                     key={s.name}
                     onClick={() => setSelected(s.name)}
                     onDoubleClick={() => {
-                        store.dispatch(openProgram(s.program))
+                        s.program && store.dispatch(openProgram(s.program))
                     }}>
                     <Shortcut name={s.name} filename={s.filename} selected={s.name === selected} />
                 </ShortcutIconWrapper>
@@ -49,7 +71,8 @@ export const Shortcuts: React.FC = () => {
 
 const ShortcutIconWrapper = styled.div`
     z-index: ${p => p.theme.zIndex.shortcuts};
-    max-height: 80px;
+    max-height: 60px;
+    max-width: 60px;
     margin: 10px;
 `
 
@@ -64,8 +87,9 @@ const Wrapper = styled.div`
     min-height: calc(100% - 38px);
     width: 100%;
     display: flex;
-    position: relative;
+    flex-direction: column;
     padding: 10px;
+    position: relative;
 `
 
 export const Shortcut: React.FC<{ name: string; filename: string; selected: boolean }> = p => (
@@ -77,13 +101,17 @@ export const Shortcut: React.FC<{ name: string; filename: string; selected: bool
 
 const ShortcutWrapper = styled.div`
     height: 80px;
-    width: 50px;
+    width: 60px;
     cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 `
 
 const ShortcutName = styled.div<{ selected: boolean }>`
     font-size: 11px;
-
+    width: 60px;
     padding: 3px;
     flex-wrap: wrap;
     white-space: break-spaces;
