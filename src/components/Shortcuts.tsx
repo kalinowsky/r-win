@@ -16,7 +16,7 @@ const schema: Shortcut[] = [
     {
         id: "notepad-program",
         name: "Notepad.exe",
-        filename: "notepad.svg",
+        filename: "notepad-2.svg",
         program: {
             id: "notepad",
             meta: {
@@ -30,7 +30,7 @@ const schema: Shortcut[] = [
     {
         id: "notepad-readme",
         name: "README.txt",
-        filename: "notepad.svg",
+        filename: "notepad-2.svg",
         program: {
             id: "notepad",
             meta: {
@@ -44,7 +44,13 @@ const schema: Shortcut[] = [
     {
         id: "github",
         name: "Github.html",
-        filename: "github.png",
+        filename: "github-2.svg",
+        program: null
+    },
+    {
+        id: "linkedin",
+        name: "Linkedin.html",
+        filename: "linkedin-2.svg",
         program: null
     }
 ]
@@ -111,8 +117,9 @@ const ShortcutWrapper = styled.div`
 
 const ShortcutName = styled.div<{ selected: boolean }>`
     font-size: 11px;
-    width: 60px;
+    width: 62px;
     padding: 3px;
+    margin-top: 3px;
     flex-wrap: wrap;
     white-space: break-spaces;
     word-break: break-word;
@@ -126,9 +133,10 @@ const ShortcutName = styled.div<{ selected: boolean }>`
 `
 
 const Icon = styled.img`
-    max-width: 50px;
     max-height: 50px;
     display: flex;
     justify-content: center;
     align-items: center;
+    max-width: 34px;
+    width: 100%;
 `
