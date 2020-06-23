@@ -29,5 +29,6 @@ type NotImplementedError = {
 }
 
 export type Program = NotepadProgram | ShutdownProgram | NotImplementedError
+export type ProgramType = Pick<Program, "id">["id"]
 
 export type SystemStatus = "BOOTING" | "DESKTOP" | "SHUTDOWN"

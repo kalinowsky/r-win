@@ -3,6 +3,7 @@ import styled from "styled-components"
 import { Program } from "../domain"
 import { openProgram } from "../actions"
 import { store } from "./App"
+import { getShortcut } from "@/assets"
 
 type Shortcut = {
     id: string
@@ -16,7 +17,7 @@ const schema: Shortcut[] = [
     {
         id: "notepad-program",
         name: "Notepad.exe",
-        filename: "notepad-2.svg",
+        filename: getShortcut("notepad"),
         program: {
             id: "notepad",
             meta: {
@@ -30,7 +31,7 @@ const schema: Shortcut[] = [
     {
         id: "notepad-readme",
         name: "README.txt",
-        filename: "notepad-2.svg",
+        filename: getShortcut("notepad"),
         program: {
             id: "notepad",
             meta: {
@@ -44,13 +45,13 @@ const schema: Shortcut[] = [
     {
         id: "github",
         name: "Github.html",
-        filename: "github-2.svg",
+        filename: getShortcut("github"),
         program: null
     },
     {
         id: "linkedin",
         name: "Linkedin.html",
-        filename: "linkedin-2.svg",
+        filename: getShortcut("linkedin"),
         program: null
     }
 ]
