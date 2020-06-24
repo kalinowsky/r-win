@@ -123,7 +123,6 @@ export const Item = styled.div`
     &:hover {
         background-color: navy;
         color: white;
-        padding: 4px;
         box-sizing: border-box;
     }
 `

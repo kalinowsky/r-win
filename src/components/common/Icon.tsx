@@ -9,3 +9,7 @@ const Img = styled.img`
     max-height: 26px;
     image-rendering: pixelated;
 `
+
+export const FullImage: React.FC<{ image: Asset }> = p => <FullSizeImg src={getPathForAsset(p.image)} />
+
+const FullSizeImg = styled.img``

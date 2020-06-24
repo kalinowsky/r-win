@@ -7,7 +7,8 @@ export const assets = [
     "notepad.svg",
     "notepad-2.svg",
     "squares.svg",
-    "win.png"
+    "win.png",
+    "funny-cat.jpg"
 ] as const
 
 export type Asset = typeof assets[number]

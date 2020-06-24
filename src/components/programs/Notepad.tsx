@@ -45,7 +45,10 @@ export const Notepad: React.FC = () => {
 }
 
 const TextArea = styled.textarea`
+    width: 100%;
+    height: calc(100% - 36px);
     padding: 3px 4px;
+    font-size: 14px;
     box-shadow: inset -1px -1px #fff, inset 1px 1px grey, inset -2px -2px #dfdfdf, inset 2px 2px #0a0a0a;
     background-color: #fff;
     box-sizing: border-box;
@@ -53,8 +56,6 @@ const TextArea = styled.textarea`
     -moz-appearance: none;
     appearance: none;
     border-radius: 0;
-    width: 100%;
-    height: calc(100% - 36px);
     & {
         resize: none;
         outline: none;

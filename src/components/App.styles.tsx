@@ -9,7 +9,8 @@ type DT = typeof defaultTheme
 
 const colors = {
     transparent: "transparent",
-    primary: "#1084d0"
+    primary: "#1084d0",
+    desktop: "#008181"
 }
 
 const zIndex = {
