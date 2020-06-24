@@ -1,5 +1,9 @@
 # React Win
 
+## Info
+Is everybody looking at it feel nostalgic? I hope so
+![Alt text](preview.png?raw=true "Preview img")
+
 ## Setup
 to install dependencies
 ```sh
@@ -14,3 +18,4 @@ $ yarn start
 ```
 $ yarn test
 ```
+
