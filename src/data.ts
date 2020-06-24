@@ -18,6 +18,7 @@ export const mkOpenLink = (link: string): OpenLinkState => ({
 })
 
 export const runActionState = (s: ActionState, dispatch: any) => {
+    if (s === null) return
     if (s.type === "program") return dispatch(openProgram(s.value.program))
     if (s.type === "link") return window.open(s.value.link)
     return null
