@@ -1,72 +1,20 @@
 import * as React from "react"
 import styled from "styled-components"
-import { Program } from "../domain"
-import { openProgram } from "../actions"
-import { store } from "./App"
-import { getShortcut } from "../assets"
-
-type Shortcut = {
-    id: string
-    name: string
-    filename: string
-    program: Program | null
-    value?: string
-}
-
-const schema: Shortcut[] = [
-    {
-        id: "notepad-program",
-        name: "Notepad.exe",
-        filename: getShortcut("notepad"),
-        program: {
-            id: "notepad",
-            meta: {
-                bottomNav: true
-            },
-            value: {
-                text: ""
-            }
-        }
-    },
-    {
-        id: "notepad-readme",
-        name: "README.txt",
-        filename: getShortcut("notepad"),
-        program: {
-            id: "notepad",
-            meta: {
-                bottomNav: true
-            },
-            value: {
-                text: "default"
-            }
-        }
-    },
-    {
-        id: "github",
-        name: "Github.html",
-        filename: getShortcut("github"),
-        program: null
-    },
-    {
-        id: "linkedin",
-        name: "Linkedin.html",
-        filename: getShortcut("linkedin"),
-        program: null
-    }
-]
+import { runActionState } from "../data"
+import { useGlobalState } from "../state"
 
 export const Shortcuts: React.FC = () => {
     const [selected, setSelected] = React.useState<string>("")
+    const { state, dispatch } = useGlobalState()
+    const { shortcuts } = state.desktop
+
     return (
         <Wrapper>
-            {schema.map(s => (
+            {shortcuts.map(s => (
                 <ShortcutIconWrapper
                     key={s.name}
                     onClick={() => setSelected(s.name)}
-                    onDoubleClick={() => {
-                        s.program && store.dispatch(openProgram(s.program))
-                    }}>
+                    onDoubleClick={() => runActionState(s.action, dispatch)}>
                     <Shortcut name={s.name} filename={s.filename} selected={s.name === selected} />
                 </ShortcutIconWrapper>
             ))}

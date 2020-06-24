@@ -7,7 +7,7 @@ export type State<T extends string> = {
     type: T
 }
 
-export type ValueState<T extends string, V extends {}> = State<T> & {
+export type ValueState<T extends string, V extends any> = State<T> & {
     value: V
 }
 

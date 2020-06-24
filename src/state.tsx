@@ -1,11 +1,15 @@
 import * as React from "react"
 import { store } from "./components/App"
-import { SystemStatus, Program } from "./domain"
+import { SystemStatus, Program, Shortcut } from "./domain"
 import { SMap } from "./types"
+import { shortcuts } from "./data"
 
 export type State = {
     status: SystemStatus
     programs: SMap<Program>
+    desktop: {
+        shortcuts: Shortcut[]
+    }
 }
 
 const isInitialized = () => {
@@ -16,7 +20,10 @@ const isInitialized = () => {
 
 export const getInitialState = (): State => ({
     status: isInitialized() ? "DESKTOP" : "BOOTING",
-    programs: {}
+    programs: {},
+    desktop: {
+        shortcuts
+    }
 })
 
 export const useGlobalState = () => {
