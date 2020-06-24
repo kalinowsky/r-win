@@ -1,6 +1,6 @@
 import { openProgram } from "./actions"
 import { Program, OpenProgramState, OpenLinkState, ActionState, Shortcut, ActionItem, ExpandableItem } from "./domain"
-import { getShortcut } from "./assets"
+import { getShortcut, getPathForAsset } from "./assets"
 import { _noop } from "./utils"
 
 export const mkOpenPrgoram = (program: Program): OpenProgramState => ({
@@ -125,6 +125,13 @@ export const navigationItems: Array<ActionItem | ExpandableItem> = [
         value: {
             name: "Mock Position",
             action: null
+        }
+    },
+    {
+        type: "action",
+        value: {
+            name: "Download test",
+            action: mkOpenLink(getPathForAsset("cat.svg"))
         }
     }
 ]
