@@ -3,7 +3,7 @@ import styled from "styled-components"
 import { Program } from "../domain"
 import { openProgram } from "../actions"
 import { store } from "./App"
-import { getShortcut } from "@/assets"
+import { getShortcut } from "../assets"
 
 type Shortcut = {
     id: string

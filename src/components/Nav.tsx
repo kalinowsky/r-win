@@ -19,9 +19,11 @@ import {
     ProgramNavShortcutIcon,
     ExpandableItemWrapper,
     ExpandableItem,
-    ExpandedMenu
+    ExpandedMenu,
+    GradientBeltName
 } from "./Nav.styles"
 import { Action } from "../store"
+import { SmallIcon } from "./common/Icon"
 
 type ExpandableItem = ValueState<
     "expandable",
@@ -38,6 +40,8 @@ type ActionItem = ValueState<
         onClick: F0
     }
 >
+
+const NAME = "Kalinovsky"
 
 const getSchema = (dispatch: (a: Action) => void): Array<ActionItem | ExpandableItem> => [
     {
@@ -139,7 +143,9 @@ export const BottomNav: React.FC = () => {
             {menuVisible && (
                 <MenuArea onClick={() => setMenuVisible(false)}>
                     <MenuWrapper onClick={e => e.stopPropagation()}>
-                        <GradientBelt />
+                        <GradientBelt>
+                            <GradientBeltName>{NAME}</GradientBeltName>
+                        </GradientBelt>
                         <ItemsContainer>
                             <Item
                                 onClick={() => {
@@ -155,7 +161,10 @@ export const BottomNav: React.FC = () => {
                 </MenuArea>
             )}
             <BottomNavWrapper>
-                <StartButton onClick={toggleMenu}>Start</StartButton>
+                <StartButton onClick={toggleMenu}>
+                    <SmallIcon icon="win.png" />
+                    Start
+                </StartButton>
                 <ProgramsWrapper>
                     {programs
                         .filter(p => p.meta.bottomNav)

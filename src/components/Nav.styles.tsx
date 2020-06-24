@@ -4,10 +4,16 @@ import { _noop } from "../utils"
 
 export const StartButton = styled(Button)`
     height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     margin-left: 4px;
-    font-size: 20px;
-    font-weight: 300;
+    font-weight: bold;
+    font-size: 19px;
     font-family: "Pixelated MS Sans Serif";
+    img {
+        margin-right: 4px;
+    }
 `
 export const ProgramsWrapper = styled.div`
     width: 100%;
@@ -79,11 +85,24 @@ export const MenuWrapper = styled.div`
 `
 
 export const GradientBelt = styled.div`
-    width: 30px;
+    max-width: 34px;
+    width: 100%;
     height: calc(100% - 5px);
     position: relative;
     background: ${p => p.theme.config.verticalGradient};
     margin: 2px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+`
+export const GradientBeltName = styled.p`
+    transform: rotate(-90deg);
+    color: white;
+    font-family: arial;
+    font-weight: 600;
+    letter-spacing: 1.2px;
+    margin-bottom: 20px;
+    font-size: 22px;
 `
 
 export const ItemsContainer = styled.div`
@@ -115,13 +134,13 @@ export const ExpandableItemWrapper = styled.div`
 export const ExpandedMenu = styled.div`
     position: absolute;
     bottom: 40px;
-    left: 210px;
+    left: 200px;
     background-color: #bdbdbd;
     z-index: ${p => p.theme.zIndex.menu};
     position: relative;
     box-shadow: ${p => p.theme.config.boxShadowLight};
     min-height: 40px;
-    width: 210px;
+    width: 200px;
 
     animation-name: expand-to-left;
     animation-duration: 0.3s;
