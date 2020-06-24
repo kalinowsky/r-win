@@ -1,6 +1,7 @@
 import { openProgram } from "./actions"
-import { Program, OpenProgramState, OpenLinkState, ActionState, Shortcut } from "./domain"
+import { Program, OpenProgramState, OpenLinkState, ActionState, Shortcut, ActionItem, ExpandableItem } from "./domain"
 import { getShortcut } from "./assets"
+import { _noop } from "./utils"
 
 export const mkOpenPrgoram = (program: Program): OpenProgramState => ({
     type: "program",
@@ -62,5 +63,67 @@ export const shortcuts: Shortcut[] = [
         name: "Linkedin.html",
         filename: getShortcut("linkedin"),
         action: mkOpenLink("https://linkedin.com")
+    }
+]
+
+export const navigationItems: Array<ActionItem | ExpandableItem> = [
+    {
+        type: "expandable",
+        value: {
+            name: "Games",
+            children: [
+                {
+                    type: "expandable",
+                    value: {
+                        name: "Not Implemented",
+                        children: [
+                            {
+                                type: "action",
+                                value: {
+                                    name: "Saper",
+                                    action: null
+                                }
+                            }
+                        ]
+                    }
+                },
+                {
+                    type: "action",
+                    value: {
+                        name: "test name 4",
+                        action: null
+                    }
+                }
+            ]
+        }
+    },
+    {
+        type: "expandable",
+        value: {
+            name: "Programs",
+            children: [
+                {
+                    type: "action",
+                    value: {
+                        name: "Paint",
+                        action: null
+                    }
+                },
+                {
+                    type: "action",
+                    value: {
+                        name: "NotePad",
+                        action: mkOpenPrgoram({ id: "notepad", meta: { bottomNav: true }, value: { text: "" } })
+                    }
+                }
+            ]
+        }
+    },
+    {
+        type: "action",
+        value: {
+            name: "Mock Position",
+            action: null
+        }
     }
 ]

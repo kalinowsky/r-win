@@ -39,9 +39,25 @@ export type Shortcut = {
     id: string
     name: string
     filename: string
-    action: ActionState | null
+    action: ActionState
     value?: string
 }
+
+export type ExpandableItem = ValueState<
+    "expandable",
+    {
+        name: string
+        children: Array<ActionItem | ExpandableItem>
+    }
+>
+
+export type ActionItem = ValueState<
+    "action",
+    {
+        name: string
+        action: ActionState
+    }
+>
 
 export type OpenProgramState = ValueState<
     "program",
@@ -52,4 +68,4 @@ export type OpenProgramState = ValueState<
 
 export type OpenLinkState = ValueState<"link", { link: string }>
 
-export type ActionState = OpenProgramState | OpenLinkState
+export type ActionState = OpenProgramState | OpenLinkState | null

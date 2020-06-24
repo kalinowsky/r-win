@@ -1,14 +1,17 @@
 import * as React from "react"
 import { store } from "./components/App"
-import { SystemStatus, Program, Shortcut } from "./domain"
+import { SystemStatus, Program, Shortcut, ActionItem, ExpandableItem } from "./domain"
 import { SMap } from "./types"
-import { shortcuts } from "./data"
+import { shortcuts, navigationItems } from "./data"
 
 export type State = {
     status: SystemStatus
     programs: SMap<Program>
     desktop: {
         shortcuts: Shortcut[]
+    }
+    navigation: {
+        items: Array<ActionItem | ExpandableItem>
     }
 }
 
@@ -23,6 +26,9 @@ export const getInitialState = (): State => ({
     programs: {},
     desktop: {
         shortcuts
+    },
+    navigation: {
+        items: navigationItems
     }
 })
 

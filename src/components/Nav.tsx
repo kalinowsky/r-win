@@ -3,7 +3,6 @@ import { SystemTime } from "./SystemTime"
 import { store } from "./App"
 import { openProgram } from "../actions"
 import { useGlobalState } from "../state"
-import { ValueState, F0 } from "../types"
 import { _noop } from "../utils"
 import {
     Item,
@@ -22,89 +21,11 @@ import {
     ExpandedMenu,
     GradientBeltName
 } from "./Nav.styles"
-import { Action } from "../store"
 import { SmallIcon } from "./common/Icon"
-
-type ExpandableItem = ValueState<
-    "expandable",
-    {
-        name: string
-        children: Array<ActionItem | ExpandableItem>
-    }
->
-
-type ActionItem = ValueState<
-    "action",
-    {
-        name: string
-        onClick: F0
-    }
->
+import { ActionItem, ExpandableItem as ExpandableItemType } from "../domain"
+import { runActionState, navigationItems } from "../data"
 
 const NAME = "Kalinovsky"
-
-const getSchema = (dispatch: (a: Action) => void): Array<ActionItem | ExpandableItem> => [
-    {
-        type: "expandable",
-        value: {
-            name: "Games",
-            children: [
-                {
-                    type: "expandable",
-                    value: {
-                        name: "Not Implemented",
-                        children: [
-                            {
-                                type: "action",
-                                value: {
-                                    name: "Saper",
-                                    onClick: _noop
-                                }
-                            }
-                        ]
-                    }
-                },
-                {
-                    type: "action",
-                    value: {
-                        name: "test name 4",
-                        onClick: _noop
-                    }
-                }
-            ]
-        }
-    },
-    {
-        type: "expandable",
-        value: {
-            name: "Programs",
-            children: [
-                {
-                    type: "action",
-                    value: {
-                        name: "Paint",
-                        onClick: _noop
-                    }
-                },
-                {
-                    type: "action",
-                    value: {
-                        name: "NotePad",
-                        onClick: () =>
-                            dispatch(openProgram({ id: "notepad", meta: { bottomNav: true }, value: { text: "" } }))
-                    }
-                }
-            ]
-        }
-    },
-    {
-        type: "action",
-        value: {
-            name: "Mock Position",
-            onClick: _noop
-        }
-    }
-]
 
 export const BottomNav: React.FC = () => {
     const [menuVisible, setMenuVisible] = React.useState<boolean>(false)
@@ -112,9 +33,8 @@ export const BottomNav: React.FC = () => {
     const shutdown = () => store.dispatch(openProgram({ id: "shutdown", meta: { bottomNav: false }, value: null }))
     const { state, dispatch } = useGlobalState()
     const programs = Object.values(state.programs)
-    const schema = getSchema(dispatch)
 
-    const renderSchema = (s: Array<ExpandableItem | ActionItem>): React.ReactNode => (
+    const renderSchema = (s: Array<ExpandableItemType | ActionItem>): React.ReactNode => (
         <>
             {s.map((v, i) => {
                 if (v.type === "action")
@@ -122,7 +42,7 @@ export const BottomNav: React.FC = () => {
                         <Item
                             key={i}
                             onClick={() => {
-                                v.value.onClick()
+                                runActionState(v.value.action, dispatch)
                                 setMenuVisible(false)
                             }}>
                             {v.value.name}
@@ -155,7 +75,7 @@ export const BottomNav: React.FC = () => {
                                 Shut Down...
                             </Item>
                             <Separator />
-                            {renderSchema(schema)}
+                            {renderSchema(navigationItems)}
                         </ItemsContainer>
                     </MenuWrapper>
                 </MenuArea>
