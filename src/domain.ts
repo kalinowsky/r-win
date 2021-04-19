@@ -1,34 +1,13 @@
 import { ValueState } from "./types"
 
-type NotepadProgram = {
-    id: "notepad"
-    meta: {
-        bottomNav: boolean
-    }
-    value: {
-        text: string
-    }
+type Meta = {
+    bottomNav: boolean
 }
+type MkProgram<T extends string, V extends {}> = { id: T; meta: Meta; value: V }
 
-type ShutdownProgram = {
-    id: "shutdown"
-    meta: {
-        bottomNav: boolean
-    }
-    value: null
-}
-
-type NotImplementedError = {
-    id: "error"
-    meta: {
-        bottomNav: boolean
-    }
-    value: {
-        text: string
-        buttonText: string
-        title: string
-    }
-}
+type NotepadProgram = MkProgram<"notepad", { text: string }>
+type ShutdownProgram = MkProgram<"shutdown", null>
+type NotImplementedError = MkProgram<"error", { text: string; buttonText: string; title: string }>
 
 export type Program = NotepadProgram | ShutdownProgram | NotImplementedError
 export type ProgramType = Pick<Program, "id">["id"]
