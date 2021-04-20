@@ -37,8 +37,10 @@ export const getInitialState = (): State => ({
 
 export const useGlobalState = () => {
     const [state, setState] = React.useState<State>(store.getState())
-    const unsubscribe = store.subscribe(s => setState(s))
-    React.useEffect(() => unsubscribe)
+    React.useEffect(() => {
+        const unsubscribe = store.subscribe(s => setState(s))
+        return unsubscribe
+    })
 
     return { state, dispatch: store.dispatch }
 }

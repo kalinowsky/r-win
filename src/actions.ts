@@ -18,6 +18,7 @@ export const openProgram: openProgramType = p => ({
 export type closeProgramType = (
     id: Pick<Program, "id">["id"]
 ) => { name: "CLOSE_PROGRAM"; payload: Pick<Program, "id"> }
+
 export const closeProgram: closeProgramType = id => ({
     name: "CLOSE_PROGRAM",
     payload: { id }

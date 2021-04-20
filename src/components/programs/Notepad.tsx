@@ -11,6 +11,7 @@ export const Notepad: React.FC = () => {
     }
     const { state } = useGlobalState()
     const { notepad } = state.programs
+
     return (
         <Window
             title="Notepad"
@@ -39,7 +40,7 @@ export const Notepad: React.FC = () => {
                     <NavOption>Help</NavOption>
                 </NavBelt>
             }>
-            <TextArea defaultValue={notepad?.value?.text}></TextArea>
+            <TextArea defaultValue={notepad.value.text}></TextArea>
         </Window>
     )
 }
